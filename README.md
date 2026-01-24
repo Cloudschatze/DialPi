@@ -15,7 +15,7 @@ DialPi turns your Raspberry Pi into a dial-up server with a real modem. Vintage 
 
 - **Raspberry Pi Zero 2 W** (tested) or similar model
 - **USB modem** (appears as `/dev/ttyACM0`)
-- **Phone line** (optional - for actual dial-up; can also test with direct modem-to-modem connection)
+- **Phone line or line simulator** (can also test with direct modem-to-modem connection, if supported by the modems-in-question)
 - **WiFi connection** (for routing internet to dial-in clients)
 
 ## What Gets Installed
