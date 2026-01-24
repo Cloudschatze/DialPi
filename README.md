@@ -72,13 +72,6 @@ When dialing in with a PPP client (Dial-Up Networking, etc.), mgetty automatical
 
 *Note: PPP authentication is not configured, so you can enter any username/password in your client's dial-up settings - they won't be validated.*
 
-### Testing Without Phone Lines
-
-You can test with two modems connected back-to-back:
-- Connect one modem's phone line to another's
-- Dial from vintage computer through first modem
-- Second modem (on DialPi) will answer
-
 ## Customization
 
 ### Change Modem Device
