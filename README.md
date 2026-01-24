@@ -33,9 +33,7 @@ DialPi turns your Raspberry Pi into a dial-up server with a real modem. Vintage 
 3. Connect your USB modem (verify it appears as `/dev/ttyACM0`)
 3. Download and run the `dialpi.sh` script:
 ```bash
-wget https://github.com/Cloudschatze/DialPi/raw/refs/heads/main/dialpi.sh
-chmod +x dialpi.sh
-./dialpi.sh
+wget https://github.com/Cloudschatze/DialPi/raw/refs/heads/main/dialpi.sh && chmod +x dialpi.sh && ./dialpi.sh
 ```
 
 The script will automatically install and configure everything needed.
