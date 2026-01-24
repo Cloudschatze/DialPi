@@ -13,7 +13,7 @@ DialPi turns your Raspberry Pi into a dial-up server with a real modem. Vintage 
 
 ## Hardware Requirements
 
-- **Raspberry Pi Zero 2 W** (tested) or similar model
+- **Raspberry Pi Zero W or Zero 2 W** (tested) or similar model
 - **USB modem** (appears as `/dev/ttyACM0`)
 -   - *Alternatively: RS-232 modem with USB-to-serial adapter (appears as `/dev/ttyUSB0` or similar - refer to the Customization section)*
 - **Phone line or line simulator** (can also test with direct modem-to-modem connection, if supported by the modems-in-question)
