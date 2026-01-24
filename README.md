@@ -111,6 +111,23 @@ Edit `/etc/ppp/options`:
 ms-dns 8.8.8.8    # Change to your preferred DNS
 ```
 
+### Configure Read-Only Filesystem (Recommended)
+
+For headless operation and protection against SD card corruption from unexpected power loss, you can configure the Pi to run in read-only mode using overlayfs.
+
+**Enable read-only mode:**
+
+Raspberry Pi OS includes a built-in overlay filesystem option. Enable it with:
+```bash
+sudo raspi-config
+```
+
+Navigate to: **Performance Options** → **Overlay File System** → Enable overlay and set boot partition to read-only when prompted.
+
+**Important notes:**
+- Run the build script and complete all customization **before** enabling overlay mode
+- To make changes later, temporarily disable overlay mode, make changes, then re-enable
+
 ## Troubleshooting
 
 **Modem not detected:**
