@@ -68,7 +68,7 @@ Enter Telnet host [port]:
 **PPP Mode:**
 When dialing in with a PPP client (Dial-Up Networking, etc.), mgetty automatically detects the PPP negotiation and initiates the connection - no manual input needed. Simply configure your vintage computer's PPP dialer and connect.
 
-*Note: PPP authentication is not configured, so you can enter any username/password in your client's dial-up settings - they won't be validated.*
+*Note: PPP authentication is not configured, so you can enter any username/password combination in your client's dial-up settings.*
 
 ## Customization
 
