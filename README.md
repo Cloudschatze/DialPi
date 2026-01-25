@@ -4,7 +4,7 @@ A shell build script to configure a Raspberry Pi as a dial-up provider (both Tel
 
 ## What It Does
 
-DialPi turns your Raspberry Pi into a dial-up server with a real modem. Vintage computers can dial in via traditional phone lines to access Telnet services or establish PPP connections for internet access. It's like running your own ISP from 1995.
+DialPi turns your Raspberry Pi into a dial-up server with a real modem. Vintage computers can dial in via traditional phone lines to access Telnet gateway services or establish PPP connections for internet access. It's like running your own ISP from 1995.
 
 ![sl_s](https://github.com/user-attachments/assets/92f31014-fea1-4815-8ab5-592701f231c5)
 
