@@ -12,7 +12,7 @@ else
 fi
 
 echo -n "Installing iptables, mgetty, ppp, and telnet packages..."
-if sudo apt-get install -y iptables mgetty ppp telnet > /dev/null 2>&1; then
+if sudo apt-get install -y iptables mgetty ppp inetutils-telnet > /dev/null 2>&1; then
     echo "Done"
 else
     echo "Failed"
