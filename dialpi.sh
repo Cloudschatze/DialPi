@@ -244,7 +244,7 @@ crtscts
 lcp-echo-interval 30
 lcp-echo-failure 4
 debug
-192.192.1.1:192.192.1.2
+192.168.192.1:192.168.192.2
 ms-dns 8.8.8.8
 asyncmap 0
 passive
