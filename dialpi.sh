@@ -160,6 +160,22 @@ else
     exit 1
 fi
 
+echo -n "Create udev rule for modem hotplug..."
+if sudo tee /etc/udev/rules.d/99-dialpi-modem.rules > /dev/null << 'EOF'
+ACTION=="add", SUBSYSTEM=="tty", KERNEL=="ttyACM0", TAG+="systemd", ENV{SYSTEMD_WANTS}+="mgetty.service"
+EOF
+then
+    if sudo udevadm control --reload-rules > /dev/null 2>&1 && sudo udevadm trigger > /dev/null 2>&1; then
+        echo "Done"
+    else
+        echo "Failed"
+        exit 1
+    fi
+else
+    echo "Failed"
+    exit 1
+fi
+
 echo -n "Create mgetty.service systemd unit file..."
 sudo systemctl stop mgetty.service > /dev/null 2>&1
 sudo systemctl disable mgetty.service > /dev/null 2>&1
@@ -169,6 +185,7 @@ if sudo tee /lib/systemd/system/mgetty.service > /dev/null << 'EOF'
 [Unit]
 Description=External Modem
 Documentation=man:mgetty(8)
+BindsTo=dev-ttyACM0.device
 After=dev-ttyACM0.device
 ConditionPathExists=/dev/ttyACM0
 
@@ -182,7 +199,7 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 then
-    if sudo systemctl enable mgetty.service > /dev/null 2>&1; then
+    if sudo systemctl daemon-reload > /dev/null 2>&1 && sudo systemctl enable mgetty.service > /dev/null 2>&1; then
         echo "Done"
     else
         echo "Failed"
@@ -194,11 +211,15 @@ else
 fi
 
 echo -n "Starting mgetty.service..."
-if sudo systemctl start mgetty.service > /dev/null 2>&1; then
-    echo "Done"
+if [ -e /dev/ttyACM0 ]; then
+    if sudo systemctl start mgetty.service > /dev/null 2>&1; then
+        echo "Done"
+    else
+        echo "Failed"
+        exit 1
+    fi
 else
-    echo "Failed"
-    exit 1
+    echo "Skipped (modem not currently plugged in; will start automatically on hotplug)"
 fi
 
 echo -n "Backup PPP options file..."
