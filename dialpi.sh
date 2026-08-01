@@ -45,8 +45,16 @@ else
 fi
 
 echo -n "Enable IPv4 port forwarding..."
-if sudo bash -c 'sed -i "/^#*.*net.ipv4.ip_forward/c\net.ipv4.ip_forward = 1" /etc/sysctl.conf || echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf' && sudo sysctl -p > /dev/null 2>&1; then
-    echo "Done"
+if sudo tee /etc/sysctl.d/99-dialpi-ip-forward.conf > /dev/null << 'EOF'
+net.ipv4.ip_forward = 1
+EOF
+then
+    if sudo sysctl --system > /dev/null 2>&1; then
+        echo "Done"
+    else
+        echo "Failed"
+        exit 1
+    fi
 else
     echo "Failed"
     exit 1
