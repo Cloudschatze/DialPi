@@ -76,7 +76,7 @@ When dialing in with a PPP client (Dial-Up Networking, etc.), mgetty automatical
 
 If your modem appears as something other than `/dev/ttyACM0`, edit:
 - `/etc/mgetty/mgetty.config` - change `port ttyACM0`
-- `/lib/systemd/system/mgetty.service` - change device references
+- `/lib/systemd/system/mgetty.service` and `/etc/udev/rules.d/99-dialpi-modem.rules` - change device references
 
 Then run:
 ```bash
