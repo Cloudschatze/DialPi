@@ -12,7 +12,7 @@ else
 fi
 
 echo -n "Installing iptables, mgetty, ppp, and telnet packages..."
-if sudo apt-get install -y iptables mgetty ppp inetutils-telnet > /dev/null 2>&1; then
+if sudo apt-get install -y iptables mgetty ppp inetutils-telnet socat > /dev/null 2>&1; then
     echo "Done"
 else
     echo "Failed"
@@ -79,12 +79,12 @@ echo -n "Create mgetty.config file..."
 if sudo tee /etc/mgetty/mgetty.config > /dev/null << 'EOF'
 port ttyACM0
 data-only yes
-rings 2
+rings 1
 speed 115200
 term ansi
 toggle-dtr no
 issue-file /etc/issue.mgetty
-login-prompt Enter Telnet host [port]:\040
+login-prompt Enter host [port]:\040
 debug 0
 EOF
 then
@@ -95,10 +95,22 @@ else
 fi
 
 echo -n "Create telnet wrapper script..."
-if sudo tee /usr/local/bin/telnet_wrapper.sh > /dev/null << 'EOF'
+if sudo tee /usr/local/bin/telnet_wrapper.sh > /dev/null <<'EOF'
 #!/bin/bash
 read -r host port <<< "$1"
-if [[ -n "$port" && "$port" =~ ^[0-9]+$ ]]; then
+
+# If the host looks like "name:digits", split it into host and port
+if [[ "$host" =~ ^([^:]+):([0-9]+)$ ]]; then
+    host="${BASH_REMATCH[1]}"
+    port="${BASH_REMATCH[2]}"
+fi
+
+base="${host,,}"
+base="${base%.}"
+
+if [[ "$base" == "nwnrevival.com" || "$base" == "www.nwnrevival.com" ]]; then
+    /usr/bin/socat STDIO,raw,echo=0 TCP:nwnrevival.com:5000
+elif [[ -n "$port" && "$port" =~ ^[0-9]+$ ]]; then
     /usr/bin/telnet "$host" "$port"
 else
     /usr/bin/telnet "$host"
@@ -149,17 +161,11 @@ if sudo rm /etc/issue.mgetty > /dev/null 2>&1; then
 fi
 
 if sudo tee /etc/issue.mgetty > /dev/null << 'EOF'
- _____     _         _           
-|_   _|___| |___ ___| |_         
-  | | | -_| |   | -_|  _|        
-  |_| |___|_|_|_|___|_|          
- _____     _                     
-|   __|___| |_ ___ _ _ _ ___ _ _ 
-|  |  | .'|  _| -_| | | | .'| | |
-|_____|__,|_| |___|_____|__,|_  |
-                            |___|
-
-DialPi/\s \D \T
+ ____  _     _ _____ _ 
+|    \\||___| |    |_|
+|  |  | | .'| |   __| |
+|____/||__,||__|  |_|
+                       
 EOF
 then
     echo "Done"
