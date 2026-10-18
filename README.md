@@ -25,6 +25,7 @@ DialPi turns your Raspberry Pi into a dial-up server with real modem connectivit
 - **pppd** - PPP daemon for dial-up internet connections
 - **iptables** - NAT configuration to share WiFi connection
 - **Telnet** - For outbound Telnet connections from dial-in users
+- **socat** - For raw TCP connections to Neverwinter Nights Revival
 
 ## Installation
 
@@ -41,7 +42,7 @@ The script will automatically install and configure everything needed.
 ## Default Configuration
 
 - **Modem device**: `/dev/ttyACM0`
-- **Answer after**: 2 rings
+- **Answer after**: 1 rings
 - **Modem speed**: 115200 (DTE speed to modem)
 - **PPP IP range**: 192.192.1.1/192.192.1.2
 
@@ -55,7 +56,7 @@ DialPi automatically detects the type of connection and responds accordingly:
 When dialing in with a terminal emulator, you'll see a custom ASCII art welcome screen and a prompt:
 
 ```
-Enter Telnet host [port]:
+Enter host [port]:
 ```
 
 **Options at the prompt:**
@@ -88,7 +89,7 @@ sudo systemctl restart mgetty
 
 Edit `/etc/mgetty/mgetty.config`:
 ```
-rings 2    # Change to desired number of rings
+rings 1    # Change to desired number of rings
 ```
 
 ### Change Welcome Screen
